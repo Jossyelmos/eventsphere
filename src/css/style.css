@@ -26,59 +26,187 @@ body {
   color: #333;
 }
 
-
 img {
   max-width: 100%;
 }
 
-header {
+header, footer {
+  position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.5rem;
-}
-
-p {
-  padding: 0.75rem;
+  background-color: #2a4d8f;
+  color: white;
+  z-index: 1000;
 }
 
 .logo {
-  line-height: 60px;
-  width: 245px;
-  overflow: hidden;
-  display: block;
-  font-size: 30px;
-  align-content: center;
-  text-align: center;
-  font-family: var(--font-headline);
+  display: flex;
+  align-items: center;
 }
 
-/* .logo {
-  line-height: 60px;
-  width: 245px;
-  overflow: hidden;
-  display: flex;
-  font-size: 30px;
-  text-align: right;
-  font-family: var(--font-headline);
-} */
-
 .logo img {
-  width: 60px;
-  height: 60px;
+  width: 35px;
 }
 
 .logo a {
+  font-size: var(--large-font);
+  font-weight: 700;
   text-decoration: none;
-  color: var(--font-body);
-  padding-left: 0.5rem;
+  color: #fff;
+  padding-top: 4px;
+  padding-left: 4px;
 }
 
-/* Container for the event list */
-.event-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
+/* nav {
+  margin: 0 auto;
+}
+
+#menu {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+}
+
+#menu::before {
+  content: "☰";
+  position: absolute;
+  font-size: 1.5rem;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+}
+
+#menu.open::before {
+  content: "❌";
+}
+
+.hidden {
+  display: none;
+}
+
+.navigation {
+  position: absolute;
+  top: 71%;
+  left: 0;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  list-style: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  z-index: 999;
+
+}
+
+.navigation a {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation a:hover {
+background-color: #bbb;
+color: #333;
+font-weight: 700;
+}
+
+.navigation.open {
+  display: flex;
+}
+
+.navigation a.active {
+  font-weight: bold;
+  color: #fff; 
+  border-bottom: 2px solid var(--accent);
+} */
+
+nav {
+  margin: 0;       /* REMOVE auto margin */
+  padding: 0;
+}
+
+#menu {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+}
+
+#menu::before {
+  content: "☰";
+  position: absolute;
+  font-size: 1.5rem;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+}
+
+#menu.open::before {
+  content: "❌";
+}
+
+.hidden {
+  display: none;
+}
+
+.navigation {
+  position: absolute;
+  top: 100%;   
+  left: 0;
+  width: 100%;   
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.navigation.open {
+  display: flex;
+}
+
+.navigation a {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.3s ease, font-weight 0.3s ease;
+}
+
+.navigation a:hover {
+  background-color: #bbb;
+  color: #333;
+}
+
+
+/* Main CSS */
+main {
+  min-height: 70vh;
 }
 
 /* Individual event card */
@@ -110,22 +238,13 @@ p {
   line-height: 1.4;
 }
 
-/* Optional: header and footer styling */
-header, footer {
-  background-color: #2a4d8f;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-}
-
 /* Filter css */
 .filters {
-  display: flex;
+  display: block;
   gap: 1rem;
   padding: 1rem;
   background: #f8f8f8;
   border-radius: 10px;
-  margin-bottom: 20px;
 }
 
 .filters input,
@@ -134,14 +253,19 @@ header, footer {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+  margin-bottom: 1rem;
 }
 
 /* Dashboard CSS */
 .dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .user-info-card,

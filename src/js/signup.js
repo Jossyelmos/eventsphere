@@ -1,4 +1,7 @@
 import Auth from "./Auth.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
 
 const auth = new Auth();
 auth.init();

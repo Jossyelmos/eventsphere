@@ -1,3 +1,5 @@
+import Auth from "./Auth.mjs";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -27,6 +29,32 @@ export function getParam(param) {
   const event = urlParams.get(param);
   return event;
 }
+
+function setupAuthNav() {
+  const auth = new Auth();
+  const user = auth.getUser();
+
+  const loginLink = document.getElementById("loginLink");
+  const signupLink = document.getElementById("signupLink");
+  const logoutLink = document.getElementById("logoutLink");
+
+  if (user) {
+      loginLink.style.display = "none";
+      signupLink.style.display = "none";
+      logoutLink.style.display = "block";
+
+      document.getElementById("logoutBtn").addEventListener("click", (e) => {
+          e.preventDefault();
+          auth.logout();
+          window.location.href = "/index.html";
+      });
+  } else {
+      loginLink.style.display = "block";
+      signupLink.style.display = "block";
+      logoutLink.style.display = "none";
+  }
+}
+
 
 export function renderEventWithTemplate(template, parentElement, event, position = "afterbegin", clear = false) {
   // if clear is true we need to clear out the contents of the parent.
@@ -63,6 +91,9 @@ export async function loadHeaderFooter(){
 
   renderWithTemplate(headerContent, header);
   renderWithTemplate(footerContent, footer);
+
+  loadNavbar();
+  setupAuthNav(); 
 }
 
 export async function loadFilter() {
@@ -71,4 +102,30 @@ export async function loadFilter() {
   const filter = document.querySelector('.filters');
 
   renderWithTemplate(filterContent, filter);
+}
+
+export function loadNavbar() {
+  const hamButton = document.querySelector('#menu');
+  const navigation = document.querySelector('.navigation');
+  const title = document.querySelector('.logo');
+  const mainContent = document.querySelector('main');
+
+  if (hamButton && navigation && title) {
+    hamButton.addEventListener('click', () => {
+      navigation.classList.toggle('open');
+      hamButton.classList.toggle('open');
+
+      // Dynamically push down content when nav opens
+        if (navigation.classList.contains('open')) {
+          // Temporarily display nav to get its height
+          navigation.style.display = 'flex';
+          const navHeight = navigation.offsetHeight;
+          mainContent.style.marginTop = navHeight + 'px';
+        } else {
+          mainContent.style.marginTop = '0';
+          navigation.style.display = '';
+        }
+    });
+  };
+
 }

@@ -1,4 +1,20 @@
 <div class="logo">
     <img src="/images/logo.jpg" alt="Events Centers" />
-    <a href="index.html"> EventSphere</a>
+    <a href="/index.html">EventSphere</a>
 </div>
+
+<nav>
+    <ul class="navigation" id="navLinks">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/dashboard/index.html">Dashboard</a></li>
+        <li><a href="/event/event.html">Events</a></li>
+        <li><a href="/event/myEvent.html">MyEvents</a></li>
+
+        <!-- Controlled by JS -->
+        <li id="loginLink"><a href="/profile/login.html">Login</a></li>
+        <li id="signupLink"><a href="/profile/signup.html">Sign Up</a></li>
+        <li id="logoutLink" style="display:none;"><a href="#" id="logoutBtn">Logout</a></li>
+    </ul>
+</nav>
+
+<button id="menu" class="hamburger" aria-label="Open menu"></button>
