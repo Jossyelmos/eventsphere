@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/event.js"></script>
+</head>
+<body>
+    <header id="main-header"></header>
+    <main class="divider">
+        <section id="eventSkeleton" class="skeleton">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-text title"></div>
+            <div class="skeleton-text subtitle"></div>
+            <div class="skeleton-text long"></div>
+            <div class="skeleton-text long"></div>
+        </section>
+          
+        <section id="eventContent" style="display:none;">
+            
+            <h2 class="divider"></h2>
+            <h3></h3>
+  
+            <img
+                class="divider"
+                id="eventImage"
+                src=""
+                alt=""
+                loading="lazy"
+            />
+    
+            <p id="eventDate" class="eventDate"></p>
+    
+            <p id="eventCategory" class="eventCategory"></p>
+    
+            <p id="eventLocation" class="eventLocation"></p>
+            <p id="eventDesc" class="eventDesc"></p>
+            <p id="eventAttendance" class="eventAttendance"></p>
+            <p id="eventRate" class="eventRate"></p>
+            <div class="event-detail__add">
+                <button id="bookEvent" data-id="344YJ">Book Event</button>
+            </div>
+        </section>
+      </main>
+      <footer id="main-footer"></footer>
+</body>
+</html>

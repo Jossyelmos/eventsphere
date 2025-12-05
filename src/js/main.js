@@ -1,39 +1,22 @@
-const token = "63M_vgx2nlv1qX9sZxfwTsNMQm8C77Qmf6YSEARl";
+import EventData from "./EventData.mjs";
+import { loadHeaderFooter, loadFilter,getLocalStorage } from "./utils.mjs";
+import { initFilters } from "./filter";
+import Auth from "./Auth.mjs";
 
-const eventsContainer = document.querySelector(".upcoming");
+const auth = new Auth();
+auth.init();
 
-async function getEvents() {
-  try {
-    const response = await fetch("https://api.predicthq.com/v1/events/?limit=20", {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/json"
-      }
-    });
+const user = auth.getUser();
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Events:", data.results);
-
-    eventsContainer.innerHTML = "";
-
-    data.results.forEach((event) => {
-      const card = `
-        <div class="event-card">
-          <h3>${event.title}</h3>
-          <p>Date: ${new Date(event.start).toLocaleDateString()}</p>
-          <p>Category: ${event.category}</p>
-          <p>Location: ${event.location?.join(", ") || "N/A"}</p>
-        </div>
-      `;
-      eventsContainer.innerHTML += card;
-    });
-  } catch (error) {
-    console.error("Error fetching events:", error);
+if (user) {
+    const users = JSON.parse(getLocalStorage("userProfiles"));
+    const interests = users[user].interests;
+  
+    console.log("User interests:", interests);
+  
+    // you may auto-filter events here
+    loadFilter();
+    initFilters();
   }
-}
 
-getEvents();
+loadHeaderFooter();
