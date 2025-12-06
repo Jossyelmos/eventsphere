@@ -1,0 +1,94 @@
+@media only screen and (min-width: 500px) {
+    header, main, footer {
+        /* max-width: 1000px; */
+        margin: 0 auto;
+    }
+
+	nav {
+		width:70% !important;
+		margin: 0;
+	}
+/* 
+	main {
+		padding: 0;
+	} */
+/* 
+  main>h1 {
+    font-size: 1.7rem;
+  } */
+
+	#menu {
+		display: none; 
+	}
+
+    .navigation {
+        position: static;
+        display: flex !important;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: transparent;
+        width: auto;
+        margin-left: auto;
+      }
+    
+      .navigation a {
+        display: block;
+        padding: 0.5rem .7rem;
+        color: var(--contrast);
+        text-align: center;
+      }
+    
+      .navigation.open {
+        display: flex;
+      }
+
+      /* ********** Main CSS ********** */
+
+      /* .layout {
+        display: block;
+      }
+
+      .section {
+        grid-template-columns: 50% 23% 23%;
+      }
+
+
+      .events h3 {
+        text-align: left;
+        padding-left: 5px;
+      }
+
+
+      .join-container {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: start;
+        border: 1px solid grey;
+      }
+
+      .form, .membership-cont {
+        width: 100%;
+        box-sizing: border-box;
+
+      }
+
+      .placecards div {      
+        display: grid;
+        grid-template-areas: 
+        "photograph name"
+        "photograph address"
+        "photograph cost";
+      }
+
+      .placecards img {
+        width: 300px;
+      }
+
+      .placecards img:hover {
+        transform: scale(1.1);
+      }
+
+      footer {
+        grid-template-columns: repeat(3, 1fr);
+      } */
+}

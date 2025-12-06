@@ -6,7 +6,7 @@ const categoryImages = {
     concerts: "/images/categories/concerts.avif",
     sports: "/images/categories/sports.avif",
     community: "/images/categories/community.avif",
-    festivals: "/images/categories/festivals.avif",
+    festivals: "/images/categories/festival.avif",
     "performing-arts": "/images/categories/arts.avif",
     conferences: "/images/categories/conference.avif",
     "school-holidays": "/images/categories/holiday.jpg",
