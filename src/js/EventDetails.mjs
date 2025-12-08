@@ -1,4 +1,3 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import Auth from "./Auth.mjs";
 import UserEvents from "./UserEvents.mjs";
 
@@ -10,10 +9,10 @@ const categoryImages = {
     "performing-arts": "/images/categories/arts.avif",
     conferences: "/images/categories/conference.avif",
     "school-holidays": "/images/categories/holiday.jpg",
+
     // fallback
     default: "/images/event-placeholder.png"
   };
-  
   
 
 export default class EventDetails {
@@ -58,7 +57,7 @@ async function eventDetailsTemplate(event) {
   document.querySelector("#eventCategory").textContent = event.category;
 
   if (event.location && Array.isArray(event.location)) {
-    const [lng, lat] = event.location;  // PredictHQ uses [lng, lat]
+    const [lng, lat] = event.location;  
     const address = await reverseGeocode(lat, lng);
   
     document.querySelector("#eventLocation").textContent =
@@ -83,7 +82,7 @@ async function eventDetailsTemplate(event) {
 
     const userEvents = new UserEvents(username);
 
-    const saved = userEvents.saveEvent(event); // <-- correct object
+    const saved = userEvents.saveEvent(event);
 
     if (saved) {
       alert("Event saved!");
@@ -94,94 +93,24 @@ async function eventDetailsTemplate(event) {
   });
 }
 
-// export async function reverseGeocode(lat, lng) {
-  
-//     const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
-  
-//     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
-  
-//     try {
-//       const res = await fetch(url);
-//       const data = await res.json();
-  
-//       if (data.results && data.results.length > 0) {
-//         return data.results[0].formatted;
-//       } else {
-//         return "Unknown location";
-//       }
-//     } catch (err) {
-//       console.error("Reverse geocoding failed:", err);
-//       return "Location unavailable";
-//     }
-//   }
-  
-// export async function reverseGeocode(lat, lng) {
-//   const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
-//   const cacheKey = "geoCache";
-
-//   // Load cache safely
-//   let cache = {};
-//   try {
-//     cache = JSON.parse(localStorage.getItem(cacheKey)) || {};
-//   } catch (e) {
-//     cache = {}; // corrupted cache → reset
-//     localStorage.setItem(cacheKey, JSON.stringify({}));
-//   }
-
-//   const key = `${lat},${lng}`;
-
-//   // Return cached value if available
-//   if (cache[key]) return cache[key];
-
-//   const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
-
-//   try {
-//     const res = await fetch(url);
-
-//     // 402 = rate limit exceeded
-//     if (res.status === 402) {
-//       console.warn("OpenCage quota exceeded → fallback address");
-//       cache[key] = "Unknown location";
-//       localStorage.setItem(cacheKey, JSON.stringify(cache));
-//       return "Unknown location";
-//     }
-
-//     const data = await res.json();
-
-//     const address =
-//       data.results?.[0]?.formatted || "Unknown location";
-
-//     // Save address to cache
-//     cache[key] = address;
-//     localStorage.setItem(cacheKey, JSON.stringify(cache));
-
-//     return address;
-//   } catch (err) {
-//     console.error("Reverse geocoding failed:", err);
-//     return "Location unavailable";
-//   }
-// }
 
 export async function reverseGeocode(lat, lng) {
-  const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
-  const cacheKey = "geoCache";
+  const apiKey = "3e9af639d4504b599936424fbe155163";
 
-  // Always ensure cache is an object
-  let cache = getLocalStorage(cacheKey);
-  if (!cache || typeof cache !== "object") cache = {};
+  const url = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=${apiKey}`;
 
-  const coordKey = `${lat},${lng}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
 
-  // If cached, return it (NO API CALL)
-  if (cache[coordKey]) return cache[coordKey];
+    const address =
+      data.features?.[0]?.properties?.formatted || "Unknown location";
 
-  // Since API is now paid, DO NOT FETCH — return fallback
-  const fallback = "Unknown location";
-
-  // Save fallback in cache so it never rechecks this location
-  cache[coordKey] = fallback;
-  setLocalStorage(cacheKey, cache);
-
-  return fallback;
+    return address;
+  } catch (err) {
+    console.error("Reverse Geocoding failed:", err);
+    return "Location unavailable";
+  }
 }
+
 

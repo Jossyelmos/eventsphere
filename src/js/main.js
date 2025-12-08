@@ -12,7 +12,7 @@ if (user) {
     const users = JSON.parse(getLocalStorage("userProfiles"));
     const interests = users[user].interests;
   
-    console.log("User interests:", interests);
+    // console.log("User interests:", interests);
   
     // you may auto-filter events here
     loadFilter();

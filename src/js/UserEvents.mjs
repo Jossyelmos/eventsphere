@@ -18,7 +18,6 @@ export default class UserEvents {
         this.saved = [];
       }
   
-      // prevent duplicates
       const exists = this.saved.some(e => e.id === event.id);
       if (exists) return false;
   

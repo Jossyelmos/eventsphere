@@ -13,7 +13,6 @@ export async function initFilters() {
   allEvents = await dataSource.getData();
 
   eventList = new EventList(null, { getData: () => allEvents }, listElement);
-//   eventList.renderList(allEvents);
 
   // New filter events
   document.getElementById("attendanceFilter").addEventListener("change", applyFilters);
@@ -22,13 +21,11 @@ export async function initFilters() {
   // Existing filters
   document.getElementById("searchInput").addEventListener("input", applyFilters);
   document.getElementById("categoryFilter").addEventListener("change", applyFilters);
-//   document.getElementById("dateFilter").addEventListener("change", applyFilters);
 }
 
 function applyFilters() {
   const search = document.getElementById("searchInput").value;
   const category = document.getElementById("categoryFilter").value;
-//   const date = document.getElementById("dateFilter").value;
   const attendance = document.getElementById("attendanceFilter").value;
   const rank = document.getElementById("rankFilter").value;
 

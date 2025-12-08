@@ -10,8 +10,6 @@ initFilters();
 const dataSource = new EventData();
 const element = document.querySelector(".event-list");
 
-// constructor signature: (event, dataSource, listElement)
-// we don’t need an event filter, so pass null
 const events = new EventList(null, dataSource, element);
 
 events.init();

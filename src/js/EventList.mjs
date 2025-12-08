@@ -1,21 +1,53 @@
 import { renderEventWithTemplate } from "./utils.mjs";
-import { reverseGeocode } from "./EventDetails.mjs"; // adjust path
+import { reverseGeocode } from "./EventDetails.mjs";
+
+// function eventCardTemplate(event, address = "Loading...") {
+//   return `
+//     <div class="event-card" id="event-${event.id}">
+//       <a href="/event_pages/index.html?id=${event.id}">
+//         <h3>${event.title}</h3>
+//         <p>Date: <span>${new Date(event.start).toLocaleDateString()}</span></p>
+//         <p>Category: <span>${event.category}</span></p>
+//         <div class="location">
+//           <p class="event-location">Location: </p>
+//           <p class="event-address">${address}</p>
+//         </div>
+//       </a>
+//     </div>
+//   `;
+// }
 
 function eventCardTemplate(event, address = "Loading...") {
   return `
-    <div class="event-card" id="event-${event.id}">
+    <div class="flip-card" id="event-${event.id}">
       <a href="/event_pages/index.html?id=${event.id}">
-        <h3>${event.title}</h3>
-        <p>Date: <span>${new Date(event.start).toLocaleDateString()}</span></p>
-        <p>Category: <span>${event.category}</span></p>
-        <div class="location">
-          <p class="event-location">Location: </p>
-          <p class="event-address">${address}</p>
+        <div class="flip-card-inner">
+
+          <div class="flip-card-front">
+            <h3>${event.title}</h3>
+            <p>Date: <span>${new Date(event.start).toLocaleDateString()}</span></p>
+            <p>Category: <span>${event.category}</span></p>
+            <p class="event-address">${address}</p>
+          </div>
+
+          <!-- BACK -->
+          <div class="flip-card-back">
+            <h4>Description</h4>
+            <p>${event.description || "No description available"}</p>
+
+            <h4>Attendance</h4>
+            <p>${event.phq_attendance || "Unknown"}</p>
+
+            <h4>Rank</h4>
+            <p>${event.rank || "N/A"}</p>
+          </div>
+
         </div>
       </a>
     </div>
   `;
 }
+
 
 export default class EventList {
   constructor(event, dataSource, listElement) {
