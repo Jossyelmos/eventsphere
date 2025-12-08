@@ -54,23 +54,21 @@ async function eventDetailsTemplate(event) {
   productImage.src = image;
   productImage.alt = event.title;
 
-  document.querySelector("#eventDate").textContent = `Date: ${new Date(event.start).toLocaleString()}`;
-  document.querySelector("#eventCategory").textContent = `Category: ${event.category}`;
+  document.querySelector("#eventDate").textContent = new Date(event.start).toLocaleString();
+  document.querySelector("#eventCategory").textContent = event.category;
 
   if (event.location && Array.isArray(event.location)) {
     const [lng, lat] = event.location;  // PredictHQ uses [lng, lat]
     const address = await reverseGeocode(lat, lng);
   
-    // console.log("Reverse geocoded address:", address);
-  
     document.querySelector("#eventLocation").textContent =
-      `Address: ${address} || "Location unavailable"`;
+      address || "Location unavailable";
   }
   
 
-  document.querySelector("#eventDesc").textContent = `Description: ${event.description}` || "No description available";
-  document.querySelector("#eventAttendance").textContent = `Attendance: ${event.phq_attendance}` || "No attendance available";
-  document.querySelector("#eventRate").textContent = `Ranked: ${event.rank}` || "No ranking available";
+  document.querySelector("#eventDesc").textContent = event.description || "No description available";
+  document.querySelector("#eventAttendance").textContent = event.phq_attendance || "No attendance available";
+  document.querySelector("#eventRate").textContent = event.rank || "No ranking available";
 
   const saveBtn = document.getElementById("bookEvent");
 
@@ -96,23 +94,94 @@ async function eventDetailsTemplate(event) {
   });
 }
 
-async function reverseGeocode(lat, lng) {
-    const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
+// export async function reverseGeocode(lat, lng) {
   
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
+//     const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
   
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
+//     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
   
-      if (data.results && data.results.length > 0) {
-        return data.results[0].formatted;
-      } else {
-        return "Unknown location";
-      }
-    } catch (err) {
-      console.error("Reverse geocoding failed:", err);
-      return "Location unavailable";
-    }
-  }
+//     try {
+//       const res = await fetch(url);
+//       const data = await res.json();
   
+//       if (data.results && data.results.length > 0) {
+//         return data.results[0].formatted;
+//       } else {
+//         return "Unknown location";
+//       }
+//     } catch (err) {
+//       console.error("Reverse geocoding failed:", err);
+//       return "Location unavailable";
+//     }
+//   }
+  
+// export async function reverseGeocode(lat, lng) {
+//   const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
+//   const cacheKey = "geoCache";
+
+//   // Load cache safely
+//   let cache = {};
+//   try {
+//     cache = JSON.parse(localStorage.getItem(cacheKey)) || {};
+//   } catch (e) {
+//     cache = {}; // corrupted cache → reset
+//     localStorage.setItem(cacheKey, JSON.stringify({}));
+//   }
+
+//   const key = `${lat},${lng}`;
+
+//   // Return cached value if available
+//   if (cache[key]) return cache[key];
+
+//   const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
+
+//   try {
+//     const res = await fetch(url);
+
+//     // 402 = rate limit exceeded
+//     if (res.status === 402) {
+//       console.warn("OpenCage quota exceeded → fallback address");
+//       cache[key] = "Unknown location";
+//       localStorage.setItem(cacheKey, JSON.stringify(cache));
+//       return "Unknown location";
+//     }
+
+//     const data = await res.json();
+
+//     const address =
+//       data.results?.[0]?.formatted || "Unknown location";
+
+//     // Save address to cache
+//     cache[key] = address;
+//     localStorage.setItem(cacheKey, JSON.stringify(cache));
+
+//     return address;
+//   } catch (err) {
+//     console.error("Reverse geocoding failed:", err);
+//     return "Location unavailable";
+//   }
+// }
+
+export async function reverseGeocode(lat, lng) {
+  const apiKey = "ae7fe6f42e46455fa3bc3b7a0b0b63bb";
+  const cacheKey = "geoCache";
+
+  // Always ensure cache is an object
+  let cache = getLocalStorage(cacheKey);
+  if (!cache || typeof cache !== "object") cache = {};
+
+  const coordKey = `${lat},${lng}`;
+
+  // If cached, return it (NO API CALL)
+  if (cache[coordKey]) return cache[coordKey];
+
+  // Since API is now paid, DO NOT FETCH — return fallback
+  const fallback = "Unknown location";
+
+  // Save fallback in cache so it never rechecks this location
+  cache[coordKey] = fallback;
+  setLocalStorage(cacheKey, cache);
+
+  return fallback;
+}
+

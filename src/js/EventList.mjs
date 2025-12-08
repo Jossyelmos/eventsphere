@@ -1,13 +1,17 @@
 import { renderEventWithTemplate } from "./utils.mjs";
+import { reverseGeocode } from "./EventDetails.mjs"; // adjust path
 
-function eventCardTemplate(event) {
+function eventCardTemplate(event, address = "Loading...") {
   return `
-    <div class="event-card">
+    <div class="event-card" id="event-${event.id}">
       <a href="/event_pages/index.html?id=${event.id}">
         <h3>${event.title}</h3>
-        <p>Date: ${new Date(event.start).toLocaleDateString()}</p>
-        <p>Category: ${event.category}</p>
-        <p>Location: ${event.location?.join(", ") || "N/A"}</p>
+        <p>Date: <span>${new Date(event.start).toLocaleDateString()}</span></p>
+        <p>Category: <span>${event.category}</span></p>
+        <div class="location">
+          <p class="event-location">Location: </p>
+          <p class="event-address">${address}</p>
+        </div>
       </a>
     </div>
   `;
@@ -21,15 +25,32 @@ export default class EventList {
   }
 
   async init() {
-    const eventlist = await this.dataSource.getData();
-    this.renderList(eventlist); // pass the fetched array
+    const events = await this.dataSource.getData();
+    this.renderList(events);
   }
 
-  renderList(events) {
-    if (!Array.isArray(events)) {
-      console.error("renderList expected an array, got:", events);
-      return;
-    }
-    renderEventWithTemplate(eventCardTemplate, this.listElement, events);
+  async renderList(events) {
+    // CLEAR OLD RESULTS
+    this.listElement.innerHTML = "";
+  
+    // Render placeholders
+    events.forEach(event => {
+      const template = eventCardTemplate(event, "Loading...");
+      this.listElement.insertAdjacentHTML("beforeend", template);
+    });
+  
+    // Update addresses async
+    events.forEach(async event => {
+      let address = "Location unavailable";
+  
+      if (event.location && Array.isArray(event.location)) {
+        const [lng, lat] = event.location;
+        address = await reverseGeocode(lat, lng);
+      }
+  
+      const card = document.querySelector(`#event-${event.id} .event-address`);
+      if (card) card.textContent = address;
+    });
   }
+  
 }

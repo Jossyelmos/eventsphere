@@ -32,16 +32,23 @@
                 loading="lazy"
             />
     
-            <p id="eventDate" class="eventDate"></p>
+            <p class="eventDetails">Date: <span id="eventDate"></span></p>
     
-            <p id="eventCategory" class="eventCategory"></p>
+            <p class="eventDetails">Category: <span id="eventCategory" ></span></p>
+            <div class="location">
+                <p class="eventDetails">Address: </p>
+                <p class="event-address" id="eventLocation"></p>
+            </div>
     
-            <p id="eventLocation" class="eventLocation"></p>
-            <p id="eventDesc" class="eventDesc"></p>
-            <p id="eventAttendance" class="eventAttendance"></p>
-            <p id="eventRate" class="eventRate"></p>
+            <div class="location">
+                <p class="eventDetails">Description: </p>
+                <p class="event-address" id="eventDesc"></p>
+              </div>
+            <!-- <p class="eventDetails">Description: <span id="eventDesc"></span></p> -->
+            <p class="eventDetails">Attendance: <span id="eventAttendance"></span></p>
+            <p class="eventDetails">Ranking: <span id="eventRate"></span></p>
             <div class="event-detail__add">
-                <button id="bookEvent" data-id="344YJ">Book Event</button>
+                <button id="bookEvent" data-id="344YJ" class="btn">Book Event</button>
             </div>
         </section>
       </main>

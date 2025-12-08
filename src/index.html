@@ -13,9 +13,14 @@
     <header id="main-header">
     </header>
     <main>
-      <img src="/images/2149216003.jpg" alt="banner Picture">
+      <picture>
+        <source media="(min-width: 1000px)" srcset="/images/large.webp">
+        <source media="(min-width: 500px)" srcset="/images/medium.webp">
+        <img src="/images/2149216003.jpg" alt="banner Picture" loading="lazy" width="" height="">
+      </picture>
+      
       <h1>Welcome to Event Planner App.</h1>
-      <a href="./event/event.html"><button>Search All Events</button></a>
+      <a href="./event/event.html"><button class="btn">Search All Events</button></a>
       <div class="filters"></div>
       <div class="event-list"></div>
     </main>

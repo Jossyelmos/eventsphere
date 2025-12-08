@@ -30,7 +30,7 @@ img {
   max-width: 100%;
 }
 
-header, footer {
+header {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -59,83 +59,8 @@ header, footer {
   padding-left: 4px;
 }
 
-/* nav {
-  margin: 0 auto;
-}
-
-#menu {
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: none;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0;
-}
-
-#menu::before {
-  content: "☰";
-  position: absolute;
-  font-size: 1.5rem;
-  color: #fff;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: none;
-}
-
-#menu.open::before {
-  content: "❌";
-}
-
-.hidden {
-  display: none;
-}
-
-.navigation {
-  position: absolute;
-  top: 71%;
-  left: 0;
-  width: 100%;
-  display: none;
-  flex-direction: column;
-  justify-content: space-around;
-  list-style: none;
-  background-color: var(--primary-color);
-  color: #fff;
-  z-index: 999;
-
-}
-
-.navigation a {
-  display: block;
-  padding: 1rem;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  transition: all 0.3s ease-in-out;
-}
-
-.navigation a:hover {
-background-color: #bbb;
-color: #333;
-font-weight: 700;
-}
-
-.navigation.open {
-  display: flex;
-}
-
-.navigation a.active {
-  font-weight: bold;
-  color: #fff; 
-  border-bottom: 2px solid var(--accent);
-} */
-
 nav {
-  margin: 0;       /* REMOVE auto margin */
+  margin: 0; 
   padding: 0;
 }
 
@@ -206,16 +131,38 @@ nav {
 
 /* Main CSS */
 main {
-  min-height: 70vh;
+  min-height: 88vh;
+  padding: 1rem;
 }
 
 /* Individual event card */
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+  justify-items: center;
+}
+
 .event-card {
-  background: #fff;
+  position: relative;
+  height: 80%;
+  width: 80%;
+  max-width: 300px;
+  justify-self: center;
+  margin-bottom: 20px;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  padding: 1.5rem;
+  background-color: #fff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card a {
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 /* Hover effect */
@@ -224,25 +171,47 @@ main {
   box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 }
 
-/* Event title */
 .event-card h3 {
   margin-top: 0;
   font-size: 1.25rem;
   color: #2a4d8f;
 }
 
-/* Event details */
 .event-card p {
   margin: 0.5rem 0;
   font-size: 0.95rem;
   line-height: 1.4;
+  font-weight: 700;
+}
+
+.location {
+  display: flex;
+}
+
+.event-card span {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.event-address {
+  font-weight: normal !important;
+  font-style: italic !important;
+  margin-left: 4px !important;
+}
+
+.eventDetails {
+  font-weight: 700;
+}
+
+.eventDetails span {
+  font-weight: normal;
 }
 
 /* Filter css */
 .filters {
   display: block;
   gap: 1rem;
-  padding: 1rem;
+  margin-top: 20px;
   background: #f8f8f8;
   border-radius: 10px;
 }
@@ -254,6 +223,7 @@ main {
   border: 1px solid #ccc;
   font-size: 14px;
   margin-bottom: 1rem;
+  margin-right: 1rem;
 }
 
 /* Dashboard CSS */
@@ -262,7 +232,7 @@ main {
   margin: 0 auto;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   padding: 2rem;
   box-sizing: border-box;
@@ -283,13 +253,155 @@ main {
   gap: 1rem;
 }
 
-.event-card {
-  padding: 1rem;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+.btn, .remove-btn {
+  border: none;
+  text-align: center;
+  background-color: var(--tertiary-color);
+  color: white;
+  border-radius: 0.2rem;
+  padding: .5rem 1rem;
+  margin: .5rem auto;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.btn:hover, .remove-btn:hover{
+  background-color: #e6b800;
+  color: #111;
+}
+
+.btn:focus,
+.btn:focus {
+  outline: 3px solid #111827;
+  outline-offset: 2px;
+}
+
+.remove-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2px;
+  border: none;
+  background: var(--tertiary-color);
+  color: #fff;
+  padding: .5rem 1rem;
+  border-radius: .25rem;
+}
+
+/* Forms CSS */
+.auth-container {
+  max-width: 400px;
+  margin: 4rem auto !important;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Center page title */
+.auth-container h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+/* ===== INPUT FIELDS ===== */
+.auth-container input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin: 0 0 1rem 0;  
+  font-size: 1rem;
+  border: 1.3px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;  
+}
+
+
+/* Checkbox Group Layout */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;  
+  gap: 0.5rem;           
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+
+.auth-container input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(58,122,254,0.2);
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.auth-container button {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-container button:hover {
+  background: #2f6ae0;
+}
+
+/* Sign up link */
+.auth-container .form-footer {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.auth-container .form-footer a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-container .form-footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* Footer CSS */
+footer {
+  background-color: #2a4d8f;
+  padding: 0.5rem;
+  color: var(--light-grey);
+  text-align: center;
+}
+
+footer p {
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
+}
 
 
 /* Container shimmer animation */

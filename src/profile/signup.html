@@ -10,7 +10,7 @@
 </head>
 <body>
     <header id="main-header"></header>
-    <main>
+    <!-- <main>
         <h1>Sign up page</h1>
         <form id="signupForm">
             <input id="username" placeholder="Username" required>
@@ -23,9 +23,34 @@
             <label><input type="checkbox" value="festivals"> Festivals</label>
             <label><input type="checkbox" value="community"> Community</label>
           
-            <button type="submit">Sign Up</button>
+            <button type="submit" class="btn">Sign Up</button>
         </form>  
-    </main>
+    </main> -->
+    <main>
+        <div class="auth-container">
+            <h1>Sign up</h1>
+      
+            <form id="signupForm">
+                <input id="username" placeholder="Username" required>
+                <input id="password" type="password" placeholder="Password" required>
+
+                <p>Select your interests:</p>
+          
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="concerts"> Concerts</label>
+                    <label><input type="checkbox" value="sports"> Sports</label>
+                    <label><input type="checkbox" value="festivals"> Festivals</label>
+                    <label><input type="checkbox" value="community"> Community</label>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+      
+            <p class="form-footer">
+              Do you have an account?
+              <a href="./login.html">Login</a>
+            </p>
+        </div>
+      </main>
     <footer id="main-footer"></footer>
 </body>
 </html>
